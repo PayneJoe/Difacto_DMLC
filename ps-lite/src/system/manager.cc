@@ -29,7 +29,6 @@ void Manager::Init(int argc, char *argv[]) {
   app_ = App::Create(argc, argv);
   CHECK(app_ != NULL) << ": failed to create app";
 
-
   if (IsScheduler()) {
     if (!FLAGS_logtostderr) {
       LOG(INFO) << "Staring system. Logging into " << FLAGS_log_dir
