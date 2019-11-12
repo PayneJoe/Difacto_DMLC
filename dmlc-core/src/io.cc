@@ -25,6 +25,10 @@
 #include "io/azure_filesys.h"
 #endif
 
+#if DMLC_USE_OBS
+#include "io/obs_filesys.h"
+#endif
+
 namespace dmlc {
 namespace io {
 FileSystem *FileSystem::GetInstance(const std::string &protocol) {
@@ -51,6 +55,14 @@ FileSystem *FileSystem::GetInstance(const std::string &protocol) {
     return AzureFileSystem::GetInstance();
 #else
     LOG(FATAL) << "Please compile with DMLC_USE_AZURE=1 to use Azure";
+#endif
+  }
+
+  if(protocol == "obs://"){
+#if DMLC_USE_OBS
+    return ObsFileSystem::GetInstance();
+#else
+    LOG(FATAL) << "Please compile with DMLC_USE_OBS=1 to use OBS";
 #endif
   }
 

@@ -36,6 +36,10 @@ ifeq ($(USE_AZURE), 1)
 	OBJ += azure_filesys.o
 endif
 
+ifeq ($(USE_OBS), 1)
+	OBJ += obs_filesys.o
+endif
+
 ifndef LINT_LANG
 	LINT_LANG="all"
 endif
@@ -56,6 +60,7 @@ input_split_base.o: src/io/input_split_base.cc
 hdfs_filesys.o: src/io/hdfs_filesys.cc
 s3_filesys.o: src/io/s3_filesys.cc
 azure_filesys.o: src/io/azure_filesys.cc
+obs_filesys.o: src/io/obs_filesys.cc
 local_filesys.o: src/io/local_filesys.cc
 io.o: src/io.cc
 data.o: src/data.cc

@@ -10,7 +10,9 @@ CXX = g++
 USE_GLOG = 1
 
 # whether use HDFS support during compile
-USE_HDFS = 0
+USE_HDFS = 1
+
+USE_OBS = 1
 
 # optimization flag. -O0 -ggdb for debug
 # OPT = -O3 -ggdb

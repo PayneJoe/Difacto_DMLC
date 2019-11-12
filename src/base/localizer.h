@@ -5,6 +5,7 @@
 #include "dmlc/omp.h"
 #include "data/row_block.h"
 #include "base/parallel_sort.h"
+#include "gflags/gflags_declare.h"
 
 
 namespace ps {

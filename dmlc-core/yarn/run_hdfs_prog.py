@@ -11,6 +11,7 @@ import subprocess
 if len(sys.argv) < 2:
     print 'Usage: the command you want to run'
 
+obs_home = os.getenv('OBS_HOME')
 hadoop_home = os.getenv('HADOOP_HOME')
 hdfs_home = os.getenv('HADOOP_HDFS_HOME')
 java_home = os.getenv('JAVA_HOME')
@@ -19,6 +20,7 @@ if hadoop_home is None:
 assert hadoop_home is not None, 'need to set HADOOP_HOME'
 assert hdfs_home is not None, 'need to set HADOOP_HDFS_HOME'
 assert java_home is not None, 'need to set JAVA_HOME'
+assert obs_home is not None, 'need to set OBS_HOME'
 
 (classpath, err) = subprocess.Popen('%s/bin/hadoop classpath' % hadoop_home,
                                     stdout=subprocess.PIPE, shell = True,
@@ -31,6 +33,7 @@ lpath = []
 lpath.append('%s/lib/native' % hdfs_home)
 lpath.append('%s/lib' % hdfs_home)
 lpath.append('%s/jre/lib/amd64/server' % java_home) 
+lpath.append('%s/lib' % obs_home) 
 lpath.append('./')
 
 env = os.environ.copy()

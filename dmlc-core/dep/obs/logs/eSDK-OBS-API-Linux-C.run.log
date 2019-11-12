@@ -1,0 +1,67 @@
+2019-11-06 21:03:54 750| CRIT|[139798642759936]==============log start============
+2019-11-06 21:03:54 750| WARN|[139798642759936]|obs_initialize OBS SDK Version= 3.19.7
+2019-11-06 21:03:54 751| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 751| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  POST
+
+
+
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?uploads
+2019-11-06 21:03:54 765| WARN|[139798642759936]|curl_easy_setopt curl path= http://sprs-data-sg.obs.ap-southeast-3.myhuaweicloud.com/?apiversion
+2019-11-06 21:03:54 768| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 768| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-obs-acl:private
+x-obs-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=1&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:54 824| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 824| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=2&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:54 863| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 864| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=3&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:54 900| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 900| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=4&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:54 933| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 933| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=5&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:54 966| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:54 966| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  PUT
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:54 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?partNumber=6&uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:55 029| WARN|[139798642759936]|enter request perform!!!
+2019-11-06 21:03:55 029| WARN|[139798642759936]|compose_auth_header request_perform : StringToSign:  POST
+
+
+
+x-amz-acl:private
+x-amz-date:Wed, 06 Nov 2019 13:03:55 GMT
+/sprs-data-sg/NeverDelete%2Fyuanpz%2Ftmp%2Fcc?uploadId=0000016E40D0798394129AC62D548216
+2019-11-06 21:03:55 066| CRIT|[139798642759936]==============log end==============
