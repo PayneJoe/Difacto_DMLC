@@ -90,8 +90,35 @@ class Dump {
   }
 
   void run() {
-    LoadModel(file_in_);
-    DumpModel(file_out_);
+    // LoadModel(file_in_);
+    // DumpModel(file_out_);
+    Stream* fi = CHECK_NOTNULL(Stream::Create(file_in_.c_str(), "r"));
+    Stream* fo = CHECK_NOTNULL(Stream::Create(file_out_.c_str(), "w"));
+    int count = 0;
+    while (true) {
+      K key;
+      AdaGradEntry age;
+      if (fi->Read(&key, sizeof(K)) != sizeof(K)) break;
+      age.Load(fi);
+      uint64_t feature_id = need_inverse_ ? ReverseBytes(key) : key;
+      std::string write_buffer = std::to_string(feature_id);
+
+      if (age.size == 1) {
+        write_buffer.append("\t" + std::to_string(age.w_0()));
+      } else {
+        for (int i = 0; i < age.size; ++i) {
+          write_buffer.append("\t" + std::to_string(age.w[i]));
+        }
+      }
+      write_buffer.append("\n");
+      fo->Write((char*)write_buffer.c_str(), write_buffer.length());
+      count++;
+      if((count > 0) && (count % 200 == 0)){
+          std::cout << "already dump " << count << " kv pairs" << std::endl;
+      }
+    }
+    std::cout << "total dump " << count << " kv pairs" << std::endl;
+    delete fi; delete fo;
   }
 
  private:
