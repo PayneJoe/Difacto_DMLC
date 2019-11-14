@@ -1,0 +1,9 @@
+2019-11-12 12:11:22 882|main|WARN |[OBS SDK Version=3.19.7.1];[Endpoint=http://obs.ap-southeast-3.myhuaweicloud.com:80/];[Access Mode=Virtul Hosting]
+2019-11-12 12:11:23 005|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:11:22|2019-11-12 12:11:23|||404|
+2019-11-12 12:11:23 025|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:11:23|2019-11-12 12:11:23|||404|
+2019-11-12 12:11:45 467|main|WARN |[OBS SDK Version=3.19.7.1];[Endpoint=http://obs.ap-southeast-3.myhuaweicloud.com:80/];[Access Mode=Virtul Hosting]
+2019-11-12 12:11:45 817|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:11:45|2019-11-12 12:11:45|||404|
+2019-11-12 12:11:45 838|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:11:45|2019-11-12 12:11:45|||404|
+2019-11-12 12:12:06 823|main|WARN |[OBS SDK Version=3.19.7.1];[Endpoint=http://obs.ap-southeast-3.myhuaweicloud.com:80/];[Access Mode=Virtul Hosting]
+2019-11-12 12:12:06 935|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:12:06|2019-11-12 12:12:06|||404|
+2019-11-12 12:12:06 954|main|WARN |Storage|1|HTTP+XML|getObjectMetadata||||2019-11-12 12:12:06|2019-11-12 12:12:06|||404|

@@ -12,10 +12,13 @@ App* App::Create(int argc, char *argv[]) {
 
   NodeInfo n;
   if (n.IsWorker()) {
+    std::cout << "AsyncWorker " << std::endl;
     return new ::dmlc::difacto::AsyncWorker(conf);
   } else if (n.IsServer()) {
+    std::cout << "AsyncServer" << std::endl;
     return new ::dmlc::difacto::AsyncServer(conf);
   } else if (n.IsScheduler()) {
+    std::cout << "AsyncScheduler" << std::endl;
     return new ::dmlc::difacto::AsyncScheduler(conf);
   } else {
     LOG(FATAL) << "unknown node";

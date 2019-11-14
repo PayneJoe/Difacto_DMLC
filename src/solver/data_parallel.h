@@ -110,7 +110,6 @@ class DataParScheduler : public ps::App {
       }
     }
 
-    // ask all workers to start by sending an empty workload
     Workload wl; SendWorkload(ps::kWorkerGroup, wl);
   }
 
@@ -137,7 +136,10 @@ class DataParScheduler : public ps::App {
 
   virtual void ProcessResponse(ps::Message* response) {
     DataParCmd cmd(response->task.cmd());
-    if (!cmd.process()) return;
+    if (!cmd.process()){
+    // std::cout << "---------------------- ProcessResponse 2" << std::endl;
+	 return;
+	}
     auto id = response->sender;
 
     // add workers' locally matched files to the pool
@@ -152,7 +154,9 @@ class DataParScheduler : public ps::App {
     // a worker finished a workload, assign it a new one if available
     pool_.Finish(id);
     Workload wl = workload_; pool_.Get(id, &wl);
-    if (wl.Empty()) return;
+    if (wl.Empty()) {
+	return;
+	}
     wl.file[0].format = data_format_;
     SendWorkload(id, wl);
   }

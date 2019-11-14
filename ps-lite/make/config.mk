@@ -15,7 +15,7 @@ USE_HDFS = 1
 USE_OBS = 1
 
 # optimization flag. -O0 -ggdb for debug
-# OPT = -O3 -ggdb
+OPT = -O3 -ggdb
 
 # the installed path of third party libraries
 # DEPS_PATH = $(shell pwd)/deps

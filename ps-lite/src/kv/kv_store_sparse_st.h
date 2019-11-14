@@ -110,10 +110,13 @@ class KVStoreSparseST : public KVStore {
   }
 
   virtual void Load(dmlc::Stream *fi) {
+    //LOG(INFO) << "begin to load handle...";
     handle_.Load(fi);
+    //LOG(INFO) << "end of loading handle...";
     K key;
     while (true) {
       if (fi->Read(&key, sizeof(K)) != sizeof(K)) break;
+      //LOG(INFO) << "key: " << key ;
       data_[key].Load(fi);
     }
     LOG(INFO) << "loaded " << data_.size() << " kv pairs";

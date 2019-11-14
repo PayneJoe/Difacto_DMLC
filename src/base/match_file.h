@@ -22,6 +22,7 @@ inline std::vector<std::string> split(const std::string &s, char delim) {
 
 inline void MatchFile_single(const std::string& pattern,
                       std::vector<std::string>* matched) {
+
   // get the path
   size_t pos = pattern.find_last_of("/\\");
   std::string path = "./";

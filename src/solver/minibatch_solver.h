@@ -102,7 +102,9 @@ class MinibatchScheduler : public IterScheduler {
         printf("Loading the last model\n");
         cur_iter = -1;
       }
-      Wait(LoadModel(model_in_, cur_iter));
+      int tt = LoadModel(model_in_, cur_iter);
+      printf("load model done? %d\n", tt);
+      Wait(tt);
       ++ cur_iter;
     }
 

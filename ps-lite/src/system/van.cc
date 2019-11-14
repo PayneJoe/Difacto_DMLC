@@ -199,6 +199,7 @@ bool Van::Send(Message* msg, size_t* send_bytes) {
   }
 
   VLOG(1) << "TO " << msg->recver << " " << msg->ShortDebugString();
+  // std::cout << "TO " << msg->recver << " " << msg->ShortDebugString() << std::endl;
   return true;
 }
 
@@ -213,6 +214,8 @@ bool Van::Recv(Message* msg, size_t* recv_bytes) {
       if (errno == EINTR) continue;
       LOG(WARNING) << "failed to receive message. errno: "
                    << errno << " " << zmq_strerror(errno);
+      // std::cout << "failed to receive message. errno: "
+                   //<< errno << " " << zmq_strerror(errno) << std::endl;
       return false;
     }
     char* buf = CHECK_NOTNULL((char *)zmq_msg_data(zmsg));
@@ -274,6 +277,7 @@ bool Van::Recv(Message* msg, size_t* recv_bytes) {
   }
 
   VLOG(1) << "FROM: " << msg->sender << " " << msg->ShortDebugString();
+  // std::cout << "FROM: " << msg->sender << " " << msg->ShortDebugString() << std::endl;
   return true;
 }
 

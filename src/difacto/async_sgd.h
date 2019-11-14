@@ -178,6 +178,7 @@ struct AdaGradEntry {
       fi->Read(sqc_grad, sizeof(float)*(size+1));
       ISGDHandle::new_V += size - 1;
     }
+    //printf("---------- load size %d\n", size);
     if (w_0() != 0) ++ ISGDHandle::new_w;
   }
 
@@ -329,6 +330,7 @@ class AsyncServer : public solver::MinibatchServer {
   virtual ~AsyncServer() { }
  protected:
   virtual void LoadModel(Stream* fi) {
+
     server_->Load(fi);
 
     Progress prog;

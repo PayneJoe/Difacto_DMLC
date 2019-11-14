@@ -30,18 +30,28 @@ Executor::~Executor() {
 
 bool Executor::CheckFinished(RemoteNode* rnode, int timestamp, bool sent) {
   CHECK(rnode);
+  // std::cout << "****************** 1" << std::endl;
   if (timestamp < 0) return true;
   auto& tracker = sent ? rnode->sent_req_tracker : rnode->recv_req_tracker;
-  if (!rnode->alive || tracker.IsFinished(timestamp)) return true;
+  // std::cout << "****************** 2" << std::endl;
+  if (!rnode->alive || tracker.IsFinished(timestamp)) {
+  // std::cout << "****************** 3" << std::endl;
+return true;
+	}
   if (rnode->node.role() == Node::GROUP) {
     for (auto r : rnode->group) {
       auto& r_tracker = sent ? r->sent_req_tracker : r->recv_req_tracker;
-      if (r->alive && !r_tracker.IsFinished(timestamp)) return false;
+      if (r->alive && !r_tracker.IsFinished(timestamp)) {
+  // std::cout << "****************** 4" << std::endl;
+		return false;
+	}
       // well, set this group node as been finished
       r_tracker.Finish(timestamp);
     }
+  // std::cout << "****************** 5" << std::endl;
     return true;
   }
+  // std::cout << "****************** 6" << std::endl;
   return false;
 }
 int Executor::NumFinished(RemoteNode* rnode, int timestamp, bool sent) {
@@ -63,8 +73,10 @@ int Executor::NumFinished(RemoteNode* rnode, int timestamp, bool sent) {
 void Executor::WaitSentReq(int timestamp) {
   std::unique_lock<std::mutex> lk(node_mu_);
   VLOG(1) << obj_.id() << ": wait sent request " << timestamp;
+  // std::cout << obj_.id() << ": wait sent request " << timestamp << std::endl;
   const NodeID& recver = sent_reqs_[timestamp].recver;
   CHECK(recver.size());
+  // std::cout << "****** recver: " << recver << std::endl;
   auto rnode = GetRNode(recver);
   sent_req_cond_.wait(lk, [this, rnode, timestamp] {
       return CheckFinished(rnode, timestamp, true);
@@ -75,6 +87,8 @@ void Executor::WaitRecvReq(int timestamp, const NodeID& sender) {
   std::unique_lock<std::mutex> lk(node_mu_);
   VLOG(1) << obj_.id() << ": wait request "
           << timestamp << " from " << sender;
+  /// std::cout << obj_.id() << ": wait request "
+       //   << timestamp << " from " << sender << std::endl;
   auto rnode = GetRNode(sender);
   recv_req_cond_.wait(lk, [this, rnode, timestamp] {
       return CheckFinished(rnode, timestamp, false);
@@ -90,6 +104,8 @@ void Executor::FinishRecvReq(int timestamp, const NodeID& sender) {
   std::unique_lock<std::mutex> lk(node_mu_);
   VLOG(1) << obj_.id() << ": finish request "
           << timestamp << " from " << sender;
+  // std::cout << obj_.id() << ": finish request "
+    //      << timestamp << " from " << sender << std::endl;
   auto rnode = GetRNode(sender);
   rnode->recv_req_tracker.Finish(timestamp);
   if (rnode->node.role() == Node::GROUP) {
@@ -143,6 +159,7 @@ int Executor::Submit(Message* msg) {
     r->EncodeMessage(m);
     m->recver = r->node.id();
     sys_.Queue(m);
+    // std::cout << "recver id: " << r->node.id() << std::endl;
   }
   return ts;
 }
@@ -168,6 +185,7 @@ void Executor::Reply(Message* request, Message* response) {
 }
 
 bool Executor::PickActiveMsg() {
+  // std::cout << "---------- PickActiveMsg 1" << std::endl;
   std::unique_lock<std::mutex> lk(msg_mu_);
   // VLOG(1) << obj_.id() << ": try to pick a message";
   auto it = recv_msgs_.begin();
@@ -232,12 +250,15 @@ bool Executor::PickActiveMsg() {
   // finished.
   VLOG(1) << obj_.id() << ": pick nothing. msg buffer size "
           << recv_msgs_.size();
+  // std::cout << "------------------" << obj_.id() << ": pick nothing. msg buffer size "
+    //      << recv_msgs_.size() << std::endl;
   dag_cond_.wait(lk);
   return false;
 }
 
 void Executor::ProcessActiveMsg() {
   // ask the customer to process the picked message, and do post-processing
+  // std::cout << "-------------- ProcessActiveMsg 1 " << std::endl;
   bool req = active_msg_->task.request();
   int ts = active_msg_->task.time();
   if (req) {
@@ -297,6 +318,7 @@ void Executor::Accept(Message* msg) {
   {
     Lock l(msg_mu_);
     recv_msgs_.push_back(msg);
+    // std::cout << "accept msg : " << msg->DebugString() << std::endl;
     // VLOG(1) << obj_.id() << ": accept " << msg->ShortDebugString();
   }
   dag_cond_.notify_one();

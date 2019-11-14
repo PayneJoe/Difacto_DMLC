@@ -59,7 +59,11 @@ class IterScheduler : public DataParScheduler {
    * \brief Returns the aggregated progress among all woreker/servers since the
    * last time calling this function
    */
-  Progress GetProgress() { Progress prog; monitor_.Get(&prog); return prog; }
+  Progress GetProgress() {
+ 	Progress prog; 
+	monitor_.Get(&prog); 
+	return prog; 
+  }
 
   // implementation
  public:
@@ -97,15 +101,20 @@ class IterServer : public ps::App {
   virtual ~IterServer() {}
 
   virtual void ProcessRequest(ps::Message* request) {
-    if (request->task.msg().size() == 0) return;
+    if (request->task.msg().size() == 0) {
+	LOG(INFO) << "message empty !" ;
+	return;
+    }
     IterCmd cmd(request->task.cmd());
     auto filename = ModelName(request->task.msg(), cmd.iter());
     if (cmd.save_model()) {
       Stream* fo = CHECK_NOTNULL(Stream::Create(filename.c_str(), "w"));
+      LOG(INFO) << "begin to save model " << filename;
       SaveModel(fo);
       delete fo;
     } else if (cmd.load_model()) {
       Stream* fi = CHECK_NOTNULL(Stream::Create(filename.c_str(), "r"));
+      LOG(INFO) << "begin to load model " << filename;
       LoadModel(fi);
       delete fi;
     }
@@ -138,6 +147,7 @@ class IterWorker : public DataParWorker {
    * \param wl the received workload
    */
   Stream* PredictStream(const std::string& filename, const Workload& wl) {
+
     CHECK_EQ(wl.type, Workload::PRED);
     CHECK_GE(wl.file.size(), (size_t)1);
 

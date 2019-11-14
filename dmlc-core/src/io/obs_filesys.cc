@@ -38,6 +38,7 @@ typedef struct upload_part_callback_data
 typedef struct get_object_callback_data
 {
   char* out_buf;
+  size_t want_read_bytes;
   size_t nread;
   obs_status ret_status;
 }get_object_callback_data;
@@ -166,7 +167,7 @@ obs_status get_object_data_callback(int buffer_size,
   get_object_callback_data *data = (get_object_callback_data *) callback_data;
   std::memcpy(data->out_buf + data->nread, buffer, buffer_size);
   data->nread += buffer_size;
-  // printf("callback buffer_size: %d\n", buffer_size);
+  // printf("reading progress: %d/%d\n", buffer_size, data->want_read_bytes);
   return OBS_STATUS_OK;
 }
 
@@ -360,6 +361,7 @@ size_t ReadStream::Read(void *ptr, size_t size) {
   data.ret_status = OBS_STATUS_BUTT;
   data.out_buf = reinterpret_cast<char*>(ptr);
   data.nread = 0;
+  data.want_read_bytes = size;
 
   obs_get_object_handler get_object_handler =
   {
@@ -367,9 +369,14 @@ size_t ReadStream::Read(void *ptr, size_t size) {
 	  &get_object_data_callback
   };
 
+  // printf("--- request read size %d, expected file size %d\n", size, this->expected_file_size_);
+
   get_object(&option, &object_info, &getcondition, 0, &get_object_handler, &data);
   if (data.ret_status == OBS_STATUS_OK) {
     this->curr_bytes_ += data.nread;
+
+    // printf("--- read progress %d/%d, current read %d/%d\n", this->curr_bytes_, this->expected_file_size_, data.nread, size);
+
     if (this->curr_bytes_ == this->expected_file_size_) {
       this->at_end_ = true;
     }

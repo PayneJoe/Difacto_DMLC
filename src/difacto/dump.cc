@@ -83,6 +83,7 @@ class Dump {
         }
         os << '\t' << it.second.sqc_grad_0() << '\n';
       }
+      os.flush();
       dumped ++;
     }
     cout << "dumped " << dumped << " kv pairs\n";
